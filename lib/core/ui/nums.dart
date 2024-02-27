@@ -1,0 +1,1 @@
+double mainHorizontalPadding = 22;

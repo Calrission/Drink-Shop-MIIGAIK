@@ -1,6 +1,8 @@
+import 'package:drink_shop/core/device/storage.dart';
 import 'package:drink_shop/on_boarding/data/models/on_boarding_model.dart';
 import 'package:drink_shop/on_boarding/data/repository/local_repository.dart';
 import 'package:drink_shop/on_boarding/domain/queue_on_boarding.dart';
+import 'package:get_it/get_it.dart';
 
 abstract class OnBoardingPresenter {
 
@@ -16,6 +18,7 @@ abstract class OnBoardingPresenter {
 class OnBoardingPresenterImpl extends OnBoardingPresenter{
   final LocalRepository _localRepository = LocalRepository();
   late final QueueOnBoarding _queueOnBoarding;
+  final Storage storage = GetIt.I.get<Storage>();
 
   late OnBoardingModel _currentOnBoardingModel;
   OnBoardingModel get currentOnBoardingModel => _currentOnBoardingModel;
@@ -37,6 +40,7 @@ class OnBoardingPresenterImpl extends OnBoardingPresenter{
       onNext();
     }else{
       onComplete();
+      storage.saveIsSeeOnBoarding();
     }
   }
 

@@ -15,6 +15,7 @@ dependencies:
   pinput: ^3.0.1
   crypto: ^3.0.3
   get_it: ^7.6.7
+  supabase_flutter: ^2.3.4
   cupertino_icons: ^1.0.6
   shared_preferences: ^2.2.2
 

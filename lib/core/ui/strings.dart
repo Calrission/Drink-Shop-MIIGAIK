@@ -60,3 +60,5 @@ const String titleStatus3 = "Доставляем ваш заказ";
 const String textStatus3 = "Мы доставим вам заказ за как можно короткое время";
 const String titleStatus4 = "Заказ доставлен";
 const String textStatus4 = "Спасибо что воспользовались нашим сервисом";
+const String textError = "Ошибка";
+const String textOK = "OK";

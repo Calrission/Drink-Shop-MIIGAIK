@@ -10,12 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_native_splash: ^2.3.13
   flutter_svg: ^2.0.10+1
   pinput: ^3.0.1
   crypto: ^3.0.3
   get_it: ^7.6.7
+  connectivity_plus: ^5.0.2
   supabase_flutter: ^2.3.4
+  env_flutter: ^0.1.4
   cupertino_icons: ^1.0.6
   shared_preferences: ^2.2.2
 
@@ -41,6 +42,7 @@ flutter:
   assets:
     - assets/on_boarding/
     - assets/icons/
+    - .env
 
   fonts:
     - family: Sora

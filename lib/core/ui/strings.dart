@@ -62,3 +62,4 @@ const String titleStatus4 = "Заказ доставлен";
 const String textStatus4 = "Спасибо что воспользовались нашим сервисом";
 const String textError = "Ошибка";
 const String textOK = "OK";
+const String textErrorNetwork = "Ошибка соединения. Проверьте подключенние к интернету";

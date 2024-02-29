@@ -1,4 +1,5 @@
-import 'package:drink_shop/auth/presentation/pages/verification_page.dart';
+import 'package:drink_shop/auth/domain/forgot_password_presenter.dart';
+import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
@@ -19,6 +20,16 @@ class _ForgotPasswordPageState extends StateWithLibrary<ForgotPasswordPage> {
 
   var email = TextEditingController();
   var isEnableSendCode = false;
+  late ForgotPasswordPresenterImpl presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = ForgotPasswordPresenterImpl(
+      onNavigate: navigateTo,
+      onError: showError
+    );
+  }
 
   void refreshEnableSendCode(_){
     setState(() {
@@ -26,10 +37,12 @@ class _ForgotPasswordPageState extends StateWithLibrary<ForgotPasswordPage> {
     });
   }
 
-  void navigateToVerification(){
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const VerificationPage())
-    );
+  void navigateTo(Route route){
+    Navigator.of(context).pushReplacement(route);
+  }
+
+  void showError(String error){
+    MessageDialog.showError(context, error);
   }
 
   @override
@@ -54,7 +67,9 @@ class _ForgotPasswordPageState extends StateWithLibrary<ForgotPasswordPage> {
                 Button(
                   text: textSendEmail,
                   isEnable: isEnableSendCode,
-                  onPressed: navigateToVerification
+                  onPressed: (){
+                    presenter.pressButtonSendCode(email.text);
+                  }
                 ).fillWidth(),
                 32.asHeight()
               ],

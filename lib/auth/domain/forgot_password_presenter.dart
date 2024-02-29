@@ -24,7 +24,7 @@ class ForgotPasswordPresenterImpl extends ForgotPasswordPresenter {
     requestToVerification() async {
       await remoteAuthRepository.sendOTP(email);
     }
-    request(
+    await request(
       request: requestToVerification,
       onResponse: (_){
         onNavigate(MaterialPageRoute(builder: (_) => VerificationPage(email: email)));

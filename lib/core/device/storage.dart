@@ -12,44 +12,56 @@ class Storage {
     return Storage(await SharedPreferences.getInstance());
   }
 
-  void _saveString(String key, String value){
-    _sharedPreferences.setString(key, value);
+  Future<void> _saveString(String key, String value) async {
+    await _sharedPreferences.setString(key, value);
   }
 
   T? _getKey<T>(String key){
     return _sharedPreferences.get(key) as T?;
   }
 
-  void _saveBool(String key, bool value){
-    _sharedPreferences.setBool(key, value);
+  Future<void> _saveBool(String key, bool value) async {
+    await _sharedPreferences.setBool(key, value);
   }
 
-  void saveIsRememberMe(bool value){
-    _saveBool("isRememberMe", value);
+  Future<void> saveIsRememberMe(bool value) async {
+    await _saveBool("isRememberMe", value);
   }
 
-  bool getIsRememberMe(){
+  bool getIsRememberMe() {
     return _getKey("isRememberMe") ?? false;
   }
 
-  bool getIsSeeOnBoarding(){
+  bool getIsSeeOnBoarding() {
     return _getKey("isSeeOnBoarding") ?? false;
   }
 
-  void saveIsSeeOnBoarding(){
-    _saveBool("isSeeOnBoarding", true);
+  Future<void> saveIsSeeOnBoarding() async {
+    await _saveBool("isSeeOnBoarding", true);
   }
 
-  void saveFullName(String fullName ){
-    _saveString("fullName", fullName);
+  Future<void> saveFullName(String fullName ) async {
+    await _saveString("fullName", fullName);
   }
 
-  void saveEmail(String email){
-    _saveString("email", email);
+  Future<void> saveEmail(String email) async {
+    await _saveString("email", email);
   }
 
-  void savePasswordSHA512(String password){
+  Future<void> savePasswordSHA512(String password) async {
     var hash = hash512(password);
-    _saveString("password", hash);
+    await _saveString("password", hash);
+  }
+
+  Future<void> saveIsConfirmVerification() async {
+    await _saveBool("isConfirmVerification", true);
+  }
+
+  Future<void> clearConfirmVerification() async {
+    await _saveBool("isConfirmVerification", false);
+  }
+
+  bool getIsConfirmVerification() {
+    return _getKey("isConfirmVerification") ?? false;
   }
 }

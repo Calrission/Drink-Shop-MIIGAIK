@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/core/values/strings.dart';
@@ -39,18 +41,25 @@ class TextCountDownTimer extends StatefulWidget {
 class _TextCountDownTimerState extends StateWithLibrary<TextCountDownTimer> {
 
   late final TextCountDownTimerController controller;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    controller = (widget as TextCountDownTimer).controller;
+    controller = widget.controller;
     setState(() {
       delayedSecond();
     });
   }
 
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   void delayedSecond() {
-    Future.delayed(const Duration(seconds: 1), () {
+    _timer = Timer(const Duration(seconds: 1), () {
       setState(() {
         if (controller.seconds != 0) {
           controller.decreaseSeconds();
@@ -72,7 +81,7 @@ class _TextCountDownTimerState extends StateWithLibrary<TextCountDownTimer> {
           style: TextStyle(color: colorLibrary.colorAccent),
         ).tap(() {
           if (controller.seconds == 0) {
-            (widget as TextCountDownTimer).tapOnFinish();
+            widget.tapOnFinish();
           }
         });
   }

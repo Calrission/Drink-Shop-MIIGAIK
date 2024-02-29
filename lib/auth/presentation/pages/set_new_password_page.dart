@@ -1,4 +1,5 @@
-import 'package:drink_shop/auth/presentation/pages/sign_in_page.dart';
+import 'package:drink_shop/auth/domain/set_new_password_presenter.dart';
+import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
@@ -6,7 +7,6 @@ import 'package:drink_shop/core/ui/widgets/Button.dart';
 import 'package:drink_shop/core/ui/widgets/Input.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 
 class SetNewPasswordPage extends StatefulWidget {
   const SetNewPasswordPage({super.key});
@@ -20,18 +20,33 @@ class _SetNewPasswordPageState extends StateWithLibrary<SetNewPasswordPage> {
   bool isEnableConfirm = false;
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
-  
-  void backToSignIn(){
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const SignInPage()),
-        (route) => false
+
+  late SetNewPasswordPresenterImpl presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = SetNewPasswordPresenterImpl(
+      navigateTo: navigateTo,
+      onError: showError
     );
   }
-  
+
+  void showError(String error){
+    MessageDialog.showError(context, error);
+  }
+
+  void navigateTo(Route route){
+    Navigator.of(context).pushAndRemoveUntil(
+      route,
+      (route) => false
+    );
+  }
+
   void refreshIsEnableConfirm(_) {
     setState(() {
       isEnableConfirm =
-          password.length >= 6 && password.text == confirmPassword.text;
+          password.text.length >= 6 && password.text == confirmPassword.text;
     });
   }
 
@@ -64,7 +79,11 @@ class _SetNewPasswordPageState extends StateWithLibrary<SetNewPasswordPage> {
                 Button(
                   text: textConfirmPassword,
                   isEnable: isEnableConfirm,
-                  onPressed: backToSignIn,
+                  onPressed: (){
+                    presenter.pressButtonSetNewPassword(
+                      password.text
+                    );
+                  },
                 ).fillWidth()
               ],
             ).expanded(),

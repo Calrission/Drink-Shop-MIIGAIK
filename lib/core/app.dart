@@ -39,10 +39,13 @@ class _MyAppState extends State<MyApp> {
     Supabase supabase = GetIt.I.get<Supabase>();
     bool isAlreadySeeOnBoarding = storage.getIsSeeOnBoarding();
     bool isAlreadySignIn = supabase.client.auth.currentUser != null;
+    bool isLaunchVerification = storage.getIsConfirmVerification();
     return MaterialApp(
       title: 'Drink Shop',
       theme: currentLibraryTheme.themeData,
-      home: (isAlreadySeeOnBoarding) ? (isAlreadySignIn) ? const HomePage() : const SignUpPage() : const OnBoardingPage(),
+      home: (isAlreadySeeOnBoarding) ?
+        (isAlreadySignIn && !isLaunchVerification) ? const HomePage() : const SignUpPage()
+      : const OnBoardingPage(),
     );
   }
 }

@@ -6,23 +6,23 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RemoteAuthRepository extends Repository {
 
-  Supabase supabase = GetIt.I.get<Supabase>();
+  final Supabase _supabase = GetIt.I.get<Supabase>();
 
   @override
   Future<void> logout() async {
-    supabase.client.auth.signOut();
+    _supabase.client.auth.signOut();
   }
 
   @override
   Future<void> sendOTP(String email) async {
-    await supabase.client.auth.resetPasswordForEmail(
+    await _supabase.client.auth.resetPasswordForEmail(
       email
     );
   }
 
   @override
   Future<void> setNewPassword(String newPassword) async {
-    await supabase.client.auth.updateUser(
+    await _supabase.client.auth.updateUser(
         UserAttributes(
           password: newPassword,
         )
@@ -31,7 +31,7 @@ class RemoteAuthRepository extends Repository {
 
   @override
   Future<void> signIn(SignInModel signInModel) async {
-    await supabase.client.auth.signInWithPassword(
+    await _supabase.client.auth.signInWithPassword(
       email: signInModel.email,
       password: signInModel.password
     );
@@ -39,7 +39,7 @@ class RemoteAuthRepository extends Repository {
 
   @override
   Future<void> signUp(SignUpModel signUpModel) async {
-    await supabase.client.auth.signUp(
+    await _supabase.client.auth.signUp(
       email: signUpModel.email,
       password: signUpModel.password,
       data: {
@@ -50,7 +50,7 @@ class RemoteAuthRepository extends Repository {
 
   @override
   Future<void> verificationCode(String email, String code) async {
-    await supabase.client.auth.verifyOTP(
+    await _supabase.client.auth.verifyOTP(
       token: code,
       email: email,
       type: OtpType.email

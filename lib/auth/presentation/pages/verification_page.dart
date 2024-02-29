@@ -29,7 +29,7 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
 
   void refreshEnableSetNewPassword() {
     setState(() {
-      isEnableSetNewPassword = code.length == 6;
+      isEnableSetNewPassword = code.length == 6 && !isError;
     });
   }
 

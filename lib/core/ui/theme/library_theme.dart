@@ -21,12 +21,14 @@ class LibraryPinPut {
   late final PinTheme defaultPinPut;
   late final PinTheme submittedPinPut;
   late final PinTheme focusedPinPut;
+  late final PinTheme errorPinPut;
 
   LibraryPinPut(
     {
       required this.defaultPinPut,
       required this.submittedPinPut,
-      required this.focusedPinPut
+      required this.focusedPinPut,
+      required this.errorPinPut,
     }
   );
 }
@@ -52,6 +54,7 @@ class LibraryColors {
   late final Color colorStroke;
   late final Color colorStrokeCheckbox;
   late final Color colorStar;
+  late final Color colorError;
 
   LibraryColors(
     {
@@ -74,7 +77,8 @@ class LibraryColors {
       required this.colorPrice,
       required this.colorStroke,
       required this.colorStrokeCheckbox,
-      required this.colorStar
+      required this.colorStar,
+      required this.colorError,
     }
   );
 }

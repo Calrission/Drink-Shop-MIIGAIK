@@ -1,5 +1,6 @@
-import 'package:drink_shop/auth/presentation/pages/set_new_password_page.dart';
+import 'package:drink_shop/auth/domain/verification_presenter.dart';
 import 'package:drink_shop/auth/presentation/widgets/text_count_down_timer.dart';
+import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class VerificationPage extends StatefulWidget {
-  const VerificationPage({super.key});
+  const VerificationPage({super.key, required this.email});
+
+  final String email;
 
   @override
   StateWithLibrary<VerificationPage> createState() => _VerificationPageState();
@@ -19,19 +22,35 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
 
   int seconds = 60;
   bool isEnableSetNewPassword = false;
+  bool isError = false;
   TextEditingController code = TextEditingController();
   TextCountDownTimerController textCountDownTimerController = TextCountDownTimerController(60);
+  late VerificationPresenterImpl presenter;
 
-  void refreshEnableSetNewPassword(_) {
+  void refreshEnableSetNewPassword() {
     setState(() {
       isEnableSetNewPassword = code.length == 6;
     });
   }
 
-  void navigateToSetNewPassword() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const SetNewPasswordPage())
+  void navigateTo(Route route) {
+    Navigator.of(context).pushAndRemoveUntil(
+      route,
+      (_) => false
     );
+  }
+
+  void showError(String error){
+    MessageDialog.showError(context, error);
+    setState(() {
+      isError = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = VerificationPresenterImpl(onNavigate: navigateTo, onError: showError);
   }
 
   @override
@@ -53,9 +72,12 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
               controller: code,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               defaultPinTheme: library.libraryPinPut.defaultPinPut,
-              submittedPinTheme: library.libraryPinPut.submittedPinPut,
+              submittedPinTheme: (isError) ? library.libraryPinPut.errorPinPut : library.libraryPinPut.submittedPinPut,
               focusedPinTheme: library.libraryPinPut.focusedPinPut,
-              onChanged: refreshEnableSetNewPassword,
+              onChanged: (_) {
+                isError = false;
+                refreshEnableSetNewPassword();
+              },
             ),
             48.asHeight(),
             TextCountDownTimer(
@@ -72,7 +94,12 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
                 Button(
                   text: textSetPassword,
                   isEnable: isEnableSetNewPassword,
-                  onPressed: navigateToSetNewPassword
+                  onPressed: () {
+                    presenter.pressButtonConfirmCode(
+                      widget.email,
+                      code.text
+                    );
+                  }
                 ).fillWidth()
               ],
             ).expanded(),

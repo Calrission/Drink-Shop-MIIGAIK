@@ -27,7 +27,7 @@ class ForgotPasswordPresenterImpl extends ForgotPasswordPresenter {
     request(
       request: requestToVerification,
       onResponse: (_){
-        onNavigate(MaterialPageRoute(builder: (_) => const VerificationPage()));
+        onNavigate(MaterialPageRoute(builder: (_) => VerificationPage(email: email)));
       },
       onError: onError
     );

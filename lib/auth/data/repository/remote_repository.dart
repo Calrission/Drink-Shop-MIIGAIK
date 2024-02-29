@@ -52,6 +52,7 @@ class RemoteAuthRepository extends Repository {
   Future<void> verificationCode(String email, String code) async {
     await supabase.client.auth.verifyOTP(
       token: code,
+      email: email,
       type: OtpType.email
     );
   }

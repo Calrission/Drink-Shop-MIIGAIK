@@ -2,7 +2,7 @@ import 'package:drink_shop/core/app.dart';
 import 'package:drink_shop/core/ui/theme/library_theme.dart';
 import 'package:flutter/material.dart';
 
-class StateWithLibrary<T extends StatefulWidget> extends State{
+class StateWithLibrary<T extends StatefulWidget> extends State<T>{
 
   late final LibraryTheme library;
   late final LibraryTextThemes textLibrary;

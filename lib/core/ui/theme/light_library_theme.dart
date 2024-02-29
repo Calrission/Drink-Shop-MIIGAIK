@@ -85,6 +85,13 @@ var lightLibraryTheme = LibraryTheme(
         border: Border.all(color: lightLibraryColors.colorLabel),
       ),
     ),
+    errorPinPut: PinTheme(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        border: Border.all(color: lightLibraryColors.colorError),
+      ),
+    ),
   ),
 );
 
@@ -109,6 +116,7 @@ var lightLibraryColors = LibraryColors(
     colorNotCheckStatus: const Color(0xFFDFDFDF),
     colorStartLinearGradient: const Color(0xFF2F2D2C),
     colorEndLinearGradient: const Color(0xFF131313),
+    colorError: const Color(0xFFFF0000)
 );
 
 var lightLibraryTextThemes = LibraryTextThemes(

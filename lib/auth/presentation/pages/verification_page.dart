@@ -1,4 +1,5 @@
 import 'package:drink_shop/auth/presentation/pages/set_new_password_page.dart';
+import 'package:drink_shop/auth/presentation/widgets/text_count_down_timer.dart';
 import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
@@ -16,8 +17,10 @@ class VerificationPage extends StatefulWidget {
 
 class _VerificationPageState extends StateWithLibrary<VerificationPage> {
 
+  int seconds = 60;
   bool isEnableSetNewPassword = false;
   TextEditingController code = TextEditingController();
+  TextCountDownTimerController textCountDownTimerController = TextCountDownTimerController(60);
 
   void refreshEnableSetNewPassword(_) {
     setState(() {
@@ -54,6 +57,15 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
               focusedPinTheme: library.libraryPinPut.focusedPinPut,
               onChanged: refreshEnableSetNewPassword,
             ),
+            48.asHeight(),
+            TextCountDownTimer(
+              tapOnFinish: (){
+                setState(() {
+                  textCountDownTimerController.resetSeconds();
+                });
+              },
+              controller: textCountDownTimerController,
+            ).align(Alignment.center),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

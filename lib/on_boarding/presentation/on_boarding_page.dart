@@ -2,7 +2,7 @@ import 'package:drink_shop/auth/presentation/pages/sign_up_page.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/ui/widgets/Button.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
-import 'package:drink_shop/on_boarding/domain/presenter.dart';
+import 'package:drink_shop/on_boarding/domain/on_boarding_presenter.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingPage extends StatefulWidget {

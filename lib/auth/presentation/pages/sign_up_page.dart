@@ -1,10 +1,13 @@
+import 'package:drink_shop/auth/data/models/sign_up_model.dart';
+import 'package:drink_shop/auth/domain/sign_up_presenter.dart';
 import 'package:drink_shop/auth/presentation/pages/sign_in_page.dart';
+import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/ui/widgets/Button.dart';
 import 'package:drink_shop/core/ui/widgets/Input.dart';
-import 'package:drink_shop/core/ui/nums.dart';
+import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
-import 'package:drink_shop/core/ui/strings.dart';
+import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/utils/pair.dart';
 import 'package:drink_shop/core/utils/validates.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +28,23 @@ class _SignUpPageState extends StateWithLibrary<SignUpPage> {
   var password = TextEditingController();
   var confirmPassword = TextEditingController();
 
-  void navigateToSignIn(){
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => const SignInPage())
+  late SignUpPresenterImpl signUpPresenter;
+
+  void navigateTo(Route route){
+    Navigator.of(context).pushReplacement(
+        route
+    );
+  }
+
+  void showError(String error){
+    MessageDialog.showError(context, error);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    signUpPresenter = SignUpPresenterImpl(
+        onNavigateTo: navigateTo, onError: showError
     );
   }
 
@@ -37,6 +54,15 @@ class _SignUpPageState extends StateWithLibrary<SignUpPage> {
           validateEmail(email.text) && password.text.isNotEmpty &&
           confirmPassword.text == password.text && password.text.length >= 6;
     });
+  }
+
+  void pressSignUpButton(){
+    SignUpModel signUpModel = SignUpModel(
+      fullName: fullName.text,
+      email: email.text,
+      password: password.text
+    );
+    signUpPresenter.pressButtonSignUp(signUpModel);
   }
 
   @override
@@ -54,20 +80,40 @@ class _SignUpPageState extends StateWithLibrary<SignUpPage> {
             8.asHeight(),
             Text(subtitleCreateAccount, style: textLibrary.subTitle),
             28.asHeight(),
-            Input.fullName(controller: fullName, onChanged: refreshEnableSignUp),
+            Input.fullName(
+              controller: fullName,
+              onChanged: refreshEnableSignUp
+            ),
             24.asHeight(),
-            Input.email(controller: email, onChanged: refreshEnableSignUp),
+            Input.email(
+              controller: email,
+              onChanged: refreshEnableSignUp
+            ),
             24.asHeight(),
-            Input.password(controller: password, onChanged: refreshEnableSignUp),
+            Input.password(
+              controller: password,
+              onChanged: refreshEnableSignUp
+            ),
             24.asHeight(),
-            Input.confirmPassword(controller: confirmPassword, onChanged: refreshEnableSignUp),
+            Input.confirmPassword(
+              controller: confirmPassword,
+              onChanged: refreshEnableSignUp
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Button(onPressed: (){}, text: textSignUp, isEnable: isEnableSignUp).fillWidth(),
+                Button(
+                  onPressed: pressSignUpButton,
+                  text: textSignUp,
+                  isEnable: isEnableSignUp
+                ).fillWidth(),
                 14.asHeight(),
                 GestureDetector(
-                  onTap: navigateToSignIn,
+                  onTap: (){
+                    navigateTo(
+                      MaterialPageRoute(builder: (_) => const SignInPage())
+                    );
+                  },
                   child: RichTextExtension.generate(
                     [
                       Pair(textAlreadyHaveAccountFirst, textLibrary.subText),

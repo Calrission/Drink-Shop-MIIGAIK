@@ -1,3 +1,4 @@
+import 'package:drink_shop/auth/data/repository/remote_repository.dart';
 import 'package:drink_shop/core/device/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -8,10 +9,12 @@ import 'package:env_flutter/env_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  await Supabase.initialize(
+  var supabase = await Supabase.initialize(
     url: dotenv.env["SUPABASE_URL"]!,
     anonKey: dotenv.env["SUPABASE_ANNON_KEY"]!,
   );
   GetIt.instance.registerSingleton(await Storage.getInstance());
+  GetIt.instance.registerSingleton(supabase);
+  GetIt.instance.registerSingleton(RemoteAuthRepository());
   runApp(const MyApp());
 }

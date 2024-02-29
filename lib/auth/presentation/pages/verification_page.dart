@@ -1,6 +1,6 @@
 import 'package:drink_shop/auth/presentation/pages/set_new_password_page.dart';
-import 'package:drink_shop/core/ui/nums.dart';
-import 'package:drink_shop/core/ui/strings.dart';
+import 'package:drink_shop/core/values/nums.dart';
+import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/ui/widgets/Button.dart';
 import 'package:drink_shop/core/utils/extensions.dart';

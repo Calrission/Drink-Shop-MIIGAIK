@@ -1,10 +1,13 @@
+import 'package:drink_shop/auth/data/models/sign_in_model.dart';
+import 'package:drink_shop/auth/domain/sign_in_presenter.dart';
 import 'package:drink_shop/auth/presentation/pages/forgot_password_page.dart';
 import 'package:drink_shop/auth/presentation/pages/sign_up_page.dart';
+import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/ui/widgets/Button.dart';
 import 'package:drink_shop/core/ui/widgets/Input.dart';
-import 'package:drink_shop/core/ui/nums.dart';
-import 'package:drink_shop/core/ui/strings.dart';
+import 'package:drink_shop/core/values/nums.dart';
+import 'package:drink_shop/core/values/strings.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/core/utils/pair.dart';
 import 'package:drink_shop/core/utils/validates.dart';
@@ -25,6 +28,26 @@ class _SignInPageState extends StateWithLibrary<SignInPage> {
   var email = TextEditingController();
   var password = TextEditingController();
 
+  late SignInPresenterImpl signInPresenterImpl;
+
+  void navigateTo(Route route){
+    Navigator.of(context).pushReplacement(
+        route
+    );
+  }
+
+  void showError(String error){
+    MessageDialog.showError(context, error);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    signInPresenterImpl = SignInPresenterImpl(
+        onNavigateTo: navigateTo, onError: showError
+    );
+  }
+
   void refreshEnableSignIn(_){
     setState(() {
       isEnableSignIn = validateEmail(email.text) &&
@@ -32,17 +55,22 @@ class _SignInPageState extends StateWithLibrary<SignInPage> {
     });
   }
 
-  void backToSignUp(){
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const SignUpPage()),
-      (route) => false
-    );
+  void navigateToSignUp(){
+    navigateTo(MaterialPageRoute(builder: (_) => const SignUpPage()));
   }
 
   void navigateToForgotPassword(){
     Navigator.of(context).push(
         MaterialPageRoute(builder: (_) => const ForgotPasswordPage())
     );
+  }
+
+  void pressSignInButton(){
+    SignInModel signInModel = SignInModel(
+      email: email.text,
+      password: password.text
+    );
+    signInPresenterImpl.pressButtonSignIn(signInModel, rememberPassword);
   }
 
   @override
@@ -88,10 +116,14 @@ class _SignInPageState extends StateWithLibrary<SignInPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Button(text: textSignIn, isEnable: isEnableSignIn).fillWidth(),
+                Button(
+                  text: textSignIn,
+                  isEnable: isEnableSignIn,
+                  onPressed: pressSignInButton,
+                ).fillWidth(),
                 14.asHeight(),
                 GestureDetector(
-                  onTap: backToSignUp,
+                  onTap: navigateToSignUp,
                   child: RichTextExtension.generate(
                     [
                       Pair(textNotHaveAccountFirst, textLibrary.subText),

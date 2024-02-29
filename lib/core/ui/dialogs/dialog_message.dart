@@ -1,4 +1,4 @@
-import 'package:drink_shop/core/ui/strings.dart';
+import 'package:drink_shop/core/values/strings.dart';
 import 'package:flutter/material.dart';
 
 class MessageDialog extends StatelessWidget {

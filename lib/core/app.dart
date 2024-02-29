@@ -1,9 +1,11 @@
 import 'package:drink_shop/auth/presentation/pages/sign_up_page.dart';
 import 'package:drink_shop/core/ui/theme/library_theme.dart';
 import 'package:drink_shop/core/ui/theme/light_library_theme.dart';
+import 'package:drink_shop/home/presentation/home_page.dart';
 import 'package:drink_shop/on_boarding/presentation/on_boarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'device/storage.dart';
 
@@ -34,11 +36,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Storage storage = GetIt.I.get<Storage>();
+    Supabase supabase = GetIt.I.get<Supabase>();
     bool isAlreadySeeOnBoarding = storage.getIsSeeOnBoarding();
+    bool isAlreadySignIn = supabase.client.auth.currentUser != null;
     return MaterialApp(
       title: 'Drink Shop',
       theme: currentLibraryTheme.themeData,
-      home: (isAlreadySeeOnBoarding) ? const SignUpPage() : const OnBoardingPage(),
+      home: (isAlreadySeeOnBoarding) ? (isAlreadySignIn) ? const HomePage() : const SignUpPage() : const OnBoardingPage(),
     );
   }
 }

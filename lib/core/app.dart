@@ -1,12 +1,11 @@
 import 'package:drink_shop/auth/presentation/pages/sign_up_page.dart';
 import 'package:drink_shop/core/ui/theme/library_theme.dart';
 import 'package:drink_shop/core/ui/theme/light_library_theme.dart';
-import 'package:drink_shop/home/presentation/home_page.dart';
+import 'package:drink_shop/home/presentation/pages/home_page.dart';
 import 'package:drink_shop/on_boarding/presentation/on_boarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'device/storage.dart';
 
 class MyApp extends StatefulWidget {

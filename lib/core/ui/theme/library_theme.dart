@@ -38,6 +38,7 @@ class LibraryColors {
   late final Color colorAccentDisable;
   late final Color colorAccentOpacity;
   late final Color colorBackground;
+  late final Color colorBackgroundBottomNavBar;
   late final Color colorBlock;
   late final Color colorSubBlock;
   late final Color colorText;
@@ -62,6 +63,7 @@ class LibraryColors {
       required this.colorAccentDisable,
       required this.colorAccentOpacity,
       required this.colorBackground,
+      required this.colorBackgroundBottomNavBar,
       required this.colorBlock,
       required this.colorSubBlock,
       required this.colorText,

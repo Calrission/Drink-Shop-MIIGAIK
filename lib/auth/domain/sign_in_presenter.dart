@@ -1,7 +1,7 @@
 import 'package:drink_shop/auth/data/models/sign_in_model.dart';
 import 'package:drink_shop/auth/data/repository/remote_repository.dart';
 import 'package:drink_shop/core/utils/network.dart';
-import 'package:drink_shop/home/presentation/home_page.dart';
+import 'package:drink_shop/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 

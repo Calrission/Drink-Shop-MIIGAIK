@@ -63,3 +63,7 @@ const String textStatus4 = "Спасибо что воспользовались
 const String textError = "Ошибка";
 const String textOK = "OK";
 const String textErrorNetwork = "Ошибка соединения. Проверьте подключенние к интернету";
+const String labelHome = "Home";
+const String labelFavorite = "Favorite";
+const String labelBag = "Bag";
+const String labelProfile = "Profile";

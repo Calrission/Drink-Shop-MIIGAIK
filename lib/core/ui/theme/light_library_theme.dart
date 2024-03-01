@@ -101,6 +101,7 @@ var lightLibraryColors = LibraryColors(
     colorAccentDisable: const Color(0xFFA7A7A7),
     colorPrice: const Color(0xFF2F4B4E),
     colorBackground: const Color(0xFFF9F9F9),
+    colorBackgroundBottomNavBar: const Color(0xFFFFFFFF),
     colorBlock: const Color(0xFFFFFFFF),
     colorSubBlock: const Color(0xFFF2F2F2),
     colorStar: const Color(0xFFFBBE21),

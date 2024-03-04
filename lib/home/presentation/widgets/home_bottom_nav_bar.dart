@@ -6,16 +6,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 class HomeBottomNavBar extends StatefulWidget {
 
   final Function(int) onChanged;
+  int currentIndex;
 
-  const HomeBottomNavBar({super.key, required this.onChanged});
+  HomeBottomNavBar({super.key, required this.onChanged, required this.currentIndex});
 
   @override
   State<HomeBottomNavBar> createState() => _HomeBottomNavBarState();
 }
 
 class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
-
-  var currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
         showSelectedLabels: false,
         backgroundColor: lightLibraryColors.colorBackgroundBottomNavBar,
         type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
+        currentIndex: widget.currentIndex,
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset("assets/icons/bottom_nav_bar/home.svg"),
@@ -74,12 +73,7 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
               label: labelProfile
           ),
         ],
-        onTap: (newIndex){
-          setState(() {
-            currentIndex = newIndex;
-          });
-          widget.onChanged(currentIndex);
-        },
+        onTap: widget.onChanged,
       ),
     );
   }

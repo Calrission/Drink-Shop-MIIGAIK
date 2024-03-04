@@ -122,7 +122,9 @@ var lightLibraryColors = LibraryColors(
 
 var lightLibraryTextThemes = LibraryTextThemes(
     title: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: lightLibraryColors.colorText),
+    titleProduct: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: lightLibraryColors.colorText),
     subTitle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: lightLibraryColors.colorLabel),
+    subTitleProduct: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: lightLibraryColors.colorSubtext),
     subTextAccentBold: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: lightLibraryColors.colorAccent),
     subTextAccent: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: lightLibraryColors.colorAccent),
     button: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: lightLibraryColors.colorTextAccent),
@@ -130,4 +132,5 @@ var lightLibraryTextThemes = LibraryTextThemes(
     text: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: lightLibraryColors.colorText),
     hint: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: lightLibraryColors.colorHint),
     subText: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: lightLibraryColors.colorLabel),
+    price: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: lightLibraryColors.colorPrice),
 );

@@ -1,1 +1,1 @@
-double mainHorizontalPadding = 22;
+const double mainHorizontalPadding = 22;

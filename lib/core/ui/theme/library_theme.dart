@@ -87,7 +87,9 @@ class LibraryColors {
 
 class LibraryTextThemes {
   late final TextStyle title;
+  late final TextStyle titleProduct;
   late final TextStyle subTitle;
+  late final TextStyle subTitleProduct;
   late final TextStyle subTextAccentBold;
   late final TextStyle subTextAccent;
   late final TextStyle button;
@@ -95,18 +97,22 @@ class LibraryTextThemes {
   late final TextStyle text;
   late final TextStyle hint;
   late final TextStyle subText;
+  late final TextStyle price;
 
   LibraryTextThemes(
     {
       required this.title,
       required this.subTitle,
+      required this.subTitleProduct,
+      required this.titleProduct,
       required this.subTextAccent,
       required this.subTextAccentBold,
       required this.button,
       required this.label,
       required this.text,
       required this.hint,
-      required this.subText
+      required this.subText,
+      required this.price
     }
   );
 }

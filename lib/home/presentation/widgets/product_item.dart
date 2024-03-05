@@ -1,18 +1,23 @@
+import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/ui/theme/stateless_widget_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductItem extends StatelessWidgetWithLibrary {
+class ProductItem extends StatefulWidget {
 
   final ProductModel model;
 
-  ProductItem({super.key, required this.model});
+  const ProductItem({super.key, required this.model});
 
   @override
+  StateWithLibrary<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends StateWithLibrary<ProductItem> {
+  @override
   Widget build(BuildContext context) {
-    init(context);
     return Container(
       decoration: BoxDecoration(
         color: colorLibrary.colorBlock,
@@ -24,26 +29,30 @@ class ProductItem extends StatelessWidgetWithLibrary {
             borderRadius: BorderRadius.circular(16),
             child: AspectRatio(
               aspectRatio: 14/13,
-              child: Image.network(
-                "https://proprikol.ru/wp-content/uploads/2020/08/kartinki-kofe-52.jpg",
-                fit: BoxFit.cover
-              ),
+              child: (widget.model.cover.contains("http"))
+                  ? Image.network(widget.model.cover, fit: BoxFit.cover)
+                  : Image.asset(widget.model.cover, fit: BoxFit.cover),
             ),
-          ),
+          ).expanded(),
           12.asHeight(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(model.title, style: textLibrary.titleProduct),
+                Text(
+                  widget.model.title,
+                  style: textLibrary.titleProduct,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis
+                ),
                 4.asHeight(),
-                Text(model.cost.toString(), style: textLibrary.subTitleProduct),
+                Text(widget.model.cost.toString(), style: textLibrary.subTitleProduct),
                 Row(
                   children: [
                     SvgPicture.asset("assets/icons/ruble.svg"),
                     4.asWidth(),
-                    Text("${model.cost}", style: textLibrary.price).expanded(),
+                    Text("${widget.model.cost}", style: textLibrary.price).expanded(),
                     SizedBox.square(
                         dimension: 32,
                         child: FilledButton(
@@ -58,7 +67,8 @@ class ProductItem extends StatelessWidgetWithLibrary {
                         )
                     )
                   ],
-                )
+                ),
+                16.asHeight()
               ],
             ),
           )
@@ -66,5 +76,4 @@ class ProductItem extends StatelessWidgetWithLibrary {
       ),
     );
   }
-
 }

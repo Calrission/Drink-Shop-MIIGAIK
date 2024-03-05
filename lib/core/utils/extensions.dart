@@ -9,6 +9,12 @@ extension IntExtension on int {
   SizedBox asWidth(){
     return SizedBox(width: toDouble());
   }
+
+  SliverToBoxAdapter asSliverHeight(){
+    return SliverToBoxAdapter(
+      child: asHeight(),
+    );
+  }
 }
 
 extension WidgetExtension on Widget {

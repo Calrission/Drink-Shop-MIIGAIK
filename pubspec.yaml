@@ -42,6 +42,7 @@ flutter:
   assets:
     - assets/on_boarding/
     - assets/icons/
+    - assets/images/
     - assets/icons/bottom_nav_bar/
     - .env
 

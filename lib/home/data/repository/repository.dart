@@ -8,4 +8,5 @@ abstract class HomeRepository {
   Future<List<CategoryProductModel>> getCategories();
   Future<ProfileModel> getCurrentUserProfile();
   Future<GeoModel> getGeoUser();
+  Future<void> logout();
 }

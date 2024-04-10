@@ -7,10 +7,10 @@ Future<bool> checkNetworkConnection() async {
   return connectivityResult != ConnectivityResult.none;
 }
 
-Future<void> request(
+Future<void> request<T>(
   {
     required Function request,
-    required Function(dynamic) onResponse,
+    required Function(T) onResponse,
     required Function(String) onError
   }
 ) async {
@@ -19,7 +19,7 @@ Future<void> request(
       onError(textErrorNetwork);
       return;
     }
-    dynamic result = await request();
+    T result = await request();
     onResponse(result);
   } on AuthException catch(e) {
     onError(e.message);

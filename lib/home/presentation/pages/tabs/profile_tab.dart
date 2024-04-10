@@ -1,4 +1,7 @@
+import 'package:drink_shop/auth/presentation/pages/sign_in_page.dart';
+import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
+import 'package:drink_shop/home/domain/profile_tab_presenter.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -9,6 +12,9 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends StateWithLibrary<ProfileTab> {
+
+  ProfileTabPresenter presenter = ProfileTabPresenter();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,8 +123,18 @@ class _ProfileTabState extends StateWithLibrary<ProfileTab> {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                  onPressed: (){
-
+                  onPressed: () async {
+                    await presenter.pressLogout(
+                        (){
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (_) => const SignInPage()),
+                                  (route) => false
+                          );
+                        },
+                        (error){
+                          MessageDialog.showError(context, error);
+                        }
+                    );
                   },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(

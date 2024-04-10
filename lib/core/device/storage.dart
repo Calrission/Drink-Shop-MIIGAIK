@@ -64,4 +64,10 @@ class Storage {
   bool getIsConfirmVerification() {
     return _getKey("isConfirmVerification") ?? false;
   }
+
+  void clearIsRememberMe() {
+    _sharedPreferences.remove("isRememberMe");
+    _sharedPreferences.remove("email");
+    _sharedPreferences.remove("password");
+  }
 }

@@ -26,16 +26,20 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    initData();
   }
 
-  void fetchData(){
-    presenter.fetchData(
-      (products) => this.products = products,
-      (categories) => this.categories = categories,
-      (profile) => this.profile = profile,
-      () => null,
-      () => setState(() {isFinishFetchData = true;}),
+  Future<void> initData() async {
+    await presenter.fetchProducts(
+      (response) => setState(() {
+        products = response;
+      }),
+      showError
+    );
+    await presenter.fetchProfile(
+      (response) => setState(() {
+        profile = response;
+      }),
       showError
     );
   }
@@ -76,6 +80,7 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
                 mainAxisExtent: 260.0
               ),
             ),

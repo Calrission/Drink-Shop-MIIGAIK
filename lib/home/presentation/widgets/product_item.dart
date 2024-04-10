@@ -31,23 +31,24 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
               child: (widget.model.cover?.contains("http") ?? false)
                   ? Image.network(widget.model.cover!, fit: BoxFit.cover)
                   // : Image.asset(widget.model.cover, fit: BoxFit.cover),
-                  : SizedBox(width: 30, height: 30)
+                  : Container(color: Colors.grey)
             ),
           ).expanded(),
           12.asHeight(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.model.title,
+                  textAlign: TextAlign.start,
                   style: textLibrary.titleProduct,
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsis
+                  overflow: TextOverflow.ellipsis,
                 ),
                 4.asHeight(),
-                Text(widget.model.sizes[0].cost.toString(), style: textLibrary.subTitleProduct),
                 Row(
                   children: [
                     SvgPicture.asset("assets/icons/ruble.svg"),

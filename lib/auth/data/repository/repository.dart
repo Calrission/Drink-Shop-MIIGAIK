@@ -8,5 +8,4 @@ abstract class Repository {
   Future<void> sendOTP(String email);
   Future<void> verificationCode(String email, String code);
   Future<void> setNewPassword(String newPassword);
-  Future<void> logout();
 }

@@ -1,78 +1,78 @@
+import 'package:drink_shop/core/utils/network.dart';
 import 'package:drink_shop/home/data/models/category_product_model.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
 import 'package:drink_shop/home/data/models/profile_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:drink_shop/home/data/repository/remote_repository.dart';
+import 'package:get_it/get_it.dart';
 
 abstract class HomeTabPresenter {
-  Future<void> fetchData(
-    Function(List<ProductModel> ) onFetchProducts,
-    Function(List<CategoryProductModel> ) onFetchCategories,
-    Function(ProfileModel) onFetchProfile,
-    Function() onStart,
-    Function() onFinish,
-    Function(String) onError
+  Future<void> fetchProducts(
+      Function(List<ProductModel>) onResponse,
+      Function(String) onError,
   );
-  Future<List<ProductModel>> fetchProducts();
-  Future<List<CategoryProductModel>> fetchCategories();
-  Future<ProfileModel> fetchProfile();
-  Future<void> logout();
+
+  Future<void> fetchCategories(
+      Function(List<CategoryProductModel>) onResponse,
+      Function(String) onError,
+  );
+
+  Future<void> fetchProfile(
+      Function(ProfileModel) onResponse,
+      Function(String) onError,
+  );
 }
 
 class HomeTabPresenterImpl extends HomeTabPresenter {
 
-  final supabase = Supabase.instance.client;
+  RemoteHomeRepository repository = GetIt.I.get<RemoteHomeRepository>();
 
   @override
-  Future<List<CategoryProductModel>> fetchCategories() async  {
-    var response = await supabase
-        .from("categories")
-        .select();
-    return response.map((e) => CategoryProductModel.fromJson(e)).toList();
-  }
-
-  @override
-  Future<void> fetchData(
-    Function(List<ProductModel> p1) onFetchProducts,
-    Function(List<CategoryProductModel> p1) onFetchCategories,
-    Function(ProfileModel p1) onFetchProfile,
-    Function() onStart,
-    Function() onFinish,
-    Function(String p1) onError
+  Future<void> fetchProducts(
+      Function(List<ProductModel>) onResponse,
+      Function(String) onError,
   ) async {
-    onStart();
-    onFetchProducts(await fetchProducts());
-    onFetchCategories(await fetchCategories());
-    onFetchProfile(await fetchProfile());
-    onFinish();
-  }
-
-  @override
-  Future<List<ProductModel>> fetchProducts() async {
-    var response = await supabase
-        .from("products")
-        .select();
-    return response.map((e) => ProductModel.fromJson(e)).toList();
-  }
-
-  @override
-  Future<ProfileModel> fetchProfile() async {
-    String idUser = supabase.auth.currentUser!.id;
-    var profile = await supabase
-        .from("profiles")
-        .select()
-        .eq("id_user", idUser)
-        .single();
-    return ProfileModel(
-        id: idUser,
-        fullname: profile["fullname"],
-        email: supabase.auth.currentUser!.email!,
-        avatar: profile["avatar"]
+    await request(
+        request: repository.getProducts,
+        onResponse: onResponse,
+        onError: onError
     );
   }
 
   @override
-  Future<void> logout() async {
-    await supabase.auth.signOut();
+  Future<void> fetchProfile(
+      Function(ProfileModel) onResponse,
+      Function(String) onError,
+  ) async {
+    await request<ProfileModel>(
+        request: repository.getCurrentUserProfile,
+        onResponse: onResponse,
+        onError: onError
+    );
+  }
+
+  Future<bool> pressLogout() async {
+    await request<void>(
+      request: repository.logout,
+      onResponse: (_){
+        return true;
+      },
+      onError: (_){
+        return false;
+      }
+    );
+    return false;
+  }
+
+  @override
+  Future<void> fetchCategories(
+      Function(List<CategoryProductModel>) onResponse,
+      Function(String) onError
+  ) async {
+    await request(
+      request: repository.getCategories,
+      onResponse: onResponse,
+      onError: onError
+    );
   }
 
 }

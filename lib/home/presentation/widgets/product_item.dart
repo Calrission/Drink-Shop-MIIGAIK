@@ -1,5 +1,4 @@
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
-import 'package:drink_shop/core/ui/theme/stateless_widget_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +28,10 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
             borderRadius: BorderRadius.circular(16),
             child: AspectRatio(
               aspectRatio: 14/13,
-              child: (widget.model.cover.contains("http"))
-                  ? Image.network(widget.model.cover, fit: BoxFit.cover)
-                  : Image.asset(widget.model.cover, fit: BoxFit.cover),
+              child: (widget.model.cover?.contains("http") ?? false)
+                  ? Image.network(widget.model.cover!, fit: BoxFit.cover)
+                  // : Image.asset(widget.model.cover, fit: BoxFit.cover),
+                  : SizedBox(width: 30, height: 30)
             ),
           ).expanded(),
           12.asHeight(),
@@ -47,12 +47,12 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                   overflow: TextOverflow.ellipsis
                 ),
                 4.asHeight(),
-                Text(widget.model.cost.toString(), style: textLibrary.subTitleProduct),
+                Text(widget.model.sizes[0].cost.toString(), style: textLibrary.subTitleProduct),
                 Row(
                   children: [
                     SvgPicture.asset("assets/icons/ruble.svg"),
                     4.asWidth(),
-                    Text("${widget.model.cost}", style: textLibrary.price).expanded(),
+                    Text("${widget.model.sizes[0].cost}", style: textLibrary.price).expanded(),
                     SizedBox.square(
                         dimension: 32,
                         child: FilledButton(

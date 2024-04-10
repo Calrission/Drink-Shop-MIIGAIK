@@ -1,28 +1,27 @@
 import 'package:drink_shop/auth/data/models/sign_in_model.dart';
 import 'package:drink_shop/auth/data/models/sign_up_model.dart';
 import 'package:drink_shop/auth/data/repository/repository.dart';
-import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RemoteAuthRepository extends Repository {
 
-  final Supabase _supabase = GetIt.I.get<Supabase>();
+  final SupabaseClient _supabase = Supabase.instance.client;
 
   @override
   Future<void> logout() async {
-    _supabase.client.auth.signOut();
+    _supabase.auth.signOut();
   }
 
   @override
   Future<void> sendOTP(String email) async {
-    await _supabase.client.auth.resetPasswordForEmail(
+    await _supabase.auth.resetPasswordForEmail(
       email
     );
   }
 
   @override
   Future<void> setNewPassword(String newPassword) async {
-    await _supabase.client.auth.updateUser(
+    await _supabase.auth.updateUser(
         UserAttributes(
           password: newPassword,
         )
@@ -31,7 +30,7 @@ class RemoteAuthRepository extends Repository {
 
   @override
   Future<void> signIn(SignInModel signInModel) async {
-    await _supabase.client.auth.signInWithPassword(
+    await _supabase.auth.signInWithPassword(
       email: signInModel.email,
       password: signInModel.password
     );
@@ -39,18 +38,24 @@ class RemoteAuthRepository extends Repository {
 
   @override
   Future<void> signUp(SignUpModel signUpModel) async {
-    await _supabase.client.auth.signUp(
+    await _supabase.auth.signUp(
       email: signUpModel.email,
       password: signUpModel.password,
       data: {
         "fullname": signUpModel.fullName
       }
     );
+
+    await _supabase.from("profiles")
+      .insert({
+        "id_user": _supabase.auth.currentUser!.id,
+        "fullname": signUpModel.fullName
+      });
   }
 
   @override
   Future<void> verificationCode(String email, String code) async {
-    await _supabase.client.auth.verifyOTP(
+    await _supabase.auth.verifyOTP(
       token: code,
       email: email,
       type: OtpType.email

@@ -17,7 +17,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends StateWithLibrary<HomeTab> {
-  final HomeTabPresenter presenter = TestDataHomeTabPresenterImpl();
+  final HomeTabPresenter presenter = HomeTabPresenterImpl();
   bool isFinishFetchData = false;
   List<ProductModel> products = [];
   List<CategoryProductModel> categories = [];
@@ -26,6 +26,10 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   @override
   void initState() {
     super.initState();
+    fetchData();
+  }
+
+  void fetchData(){
     presenter.fetchData(
       (products) => this.products = products,
       (categories) => this.categories = categories,
@@ -70,11 +74,13 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
                 products.map((e) => ProductItem(model: e)).toList()
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisExtent: 260.0),
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisExtent: 260.0
+              ),
             ),
-          )
+          ),
+          24.asSliverHeight()
         ],
       ),
     );

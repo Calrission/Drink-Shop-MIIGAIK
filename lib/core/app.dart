@@ -35,9 +35,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Storage storage = GetIt.I.get<Storage>();
-    Supabase supabase = GetIt.I.get<Supabase>();
+    var supabase = Supabase.instance.client;
     bool isAlreadySeeOnBoarding = storage.getIsSeeOnBoarding();
-    bool isAlreadySignIn = supabase.client.auth.currentUser != null;
+    bool isAlreadySignIn = supabase.auth.currentUser != null;
     bool isLaunchVerification = storage.getIsConfirmVerification();
     return MaterialApp(
       title: 'Drink Shop',

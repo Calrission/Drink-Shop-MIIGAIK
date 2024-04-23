@@ -19,6 +19,7 @@ dependencies:
   env_flutter: ^0.1.4
   cupertino_icons: ^1.0.6
   shared_preferences: ^2.2.2
+  blurrycontainer: 1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -40,11 +41,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/on_boarding/
-    - assets/icons/
-    - assets/images/
-    - assets/icons/bottom_nav_bar/
-    - keys.env
+    - assets/
 
   fonts:
     - family: Sora

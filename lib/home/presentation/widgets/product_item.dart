@@ -1,9 +1,8 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductItem extends StatefulWidget {
@@ -30,10 +29,40 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
             borderRadius: BorderRadius.circular(16),
             child: AspectRatio(
               aspectRatio: 1/1,
-              child: (widget.model.cover?.contains("http") ?? false)
-                  ? Image.network(widget.model.cover!, fit: BoxFit.cover)
-                  // : Image.asset(widget.model.cover, fit: BoxFit.cover),
-                  : Container(color: Colors.grey)
+              child: Stack(
+                children: [
+                  (widget.model.cover?.contains("http") ?? false)
+                    ? Image.network(widget.model.cover!, fit: BoxFit.cover)
+                    // : Image.asset(widget.model.cover, fit: BoxFit.cover),
+                    : Container(color: Colors.grey),
+                  BlurryContainer(
+                    blur: 5,
+                    color: Colors.transparent,
+                    borderRadius: const BorderRadius.only(bottomRight: Radius.circular(16)),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                            "assets/icons/star.svg",
+                            width: 8,
+                            height: 8,
+                            color: colorLibrary.colorStar
+                        ),
+                        4.asWidth(),
+                        Text(
+                          "4.8",
+                          style: TextStyle(
+                            color: colorLibrary.colorBlock,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600
+                          )
+                        ),
+                      ],
+                    ),
+                  )
+                ]
+              )
             ),
           ).expanded(),
           12.asHeight(),
@@ -46,7 +75,7 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                 SizedBox(
                   height: 50,
                   child: Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.topLeft,
                     child: Text(
                       widget.model.title,
                       textAlign: TextAlign.start,

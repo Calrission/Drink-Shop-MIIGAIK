@@ -9,7 +9,7 @@ import 'package:env_flutter/env_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
+  await dotenv.load(fileNames: ["assets/keys.env"]);
   await Supabase.initialize(
     url: dotenv.env["SUPABASE_URL"]!,
     anonKey: dotenv.env["SUPABASE_ANNON_KEY"]!,

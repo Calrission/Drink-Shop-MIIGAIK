@@ -5,7 +5,7 @@ import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/home/data/models/category_product_model.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
 import 'package:drink_shop/home/data/models/profile_model.dart';
-import 'package:drink_shop/home/domain/home_tab_presenter.dart';
+import 'package:drink_shop/home/domain/home_tab_usecase.dart';
 import 'package:drink_shop/home/presentation/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends StateWithLibrary<HomeTab> {
-  final HomeTabPresenter presenter = HomeTabPresenterImpl();
+  final HomeTabUseCase useCase = HomeTabUseCaseImpl();
   bool isFinishFetchData = false;
   List<ProductModel> products = [];
   List<CategoryProductModel> categories = [];
@@ -30,13 +30,13 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   }
 
   Future<void> initData() async {
-    await presenter.fetchProducts(
+    await useCase.fetchProducts(
       (response) => setState(() {
         products = response;
       }),
       showError
     );
-    await presenter.fetchProfile(
+    await useCase.fetchProfile(
       (response) => setState(() {
         profile = response;
       }),
@@ -81,7 +81,7 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
-                mainAxisExtent: 260.0
+                mainAxisExtent: 280.0
               ),
             ),
           ),

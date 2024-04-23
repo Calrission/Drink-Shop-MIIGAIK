@@ -1,7 +1,9 @@
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductItem extends StatefulWidget {
@@ -27,7 +29,7 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: AspectRatio(
-              aspectRatio: 14/13,
+              aspectRatio: 1/1,
               child: (widget.model.cover?.contains("http") ?? false)
                   ? Image.network(widget.model.cover!, fit: BoxFit.cover)
                   // : Image.asset(widget.model.cover, fit: BoxFit.cover),
@@ -41,35 +43,45 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.model.title,
-                  textAlign: TextAlign.start,
-                  style: textLibrary.titleProduct,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  height: 50,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.model.title,
+                      textAlign: TextAlign.start,
+                      style: textLibrary.titleProduct,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
-                4.asHeight(),
-                Row(
+                Column(
                   children: [
-                    SvgPicture.asset("assets/icons/ruble.svg"),
-                    4.asWidth(),
-                    Text("${widget.model.sizes[0].cost}", style: textLibrary.price).expanded(),
-                    SizedBox.square(
-                        dimension: 32,
-                        child: FilledButton(
-                          onPressed: (){},
-                          style: FilledButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              )
-                          ),
-                          child: const Icon(Icons.add, color: Colors.white, size: 16),
+                    4.asHeight(),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/icons/ruble.svg"),
+                        4.asWidth(),
+                        Text("${widget.model.sizes[0].cost}", style: textLibrary.price).expanded(),
+                        SizedBox.square(
+                            dimension: 32,
+                            child: FilledButton(
+                              onPressed: (){},
+                              style: FilledButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)
+                                  )
+                              ),
+                              child: const Icon(Icons.add, color: Colors.white, size: 16),
+                            )
                         )
-                    )
+                      ],
+                    ),
+                    16.asHeight(),
                   ],
-                ),
-                16.asHeight()
+                )
               ],
             ),
           )

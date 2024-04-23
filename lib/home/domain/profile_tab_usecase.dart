@@ -3,7 +3,7 @@ import 'package:drink_shop/core/utils/network.dart';
 import 'package:drink_shop/home/data/repository/remote_repository.dart';
 import 'package:get_it/get_it.dart';
 
-class ProfileTabPresenter {
+class ProfileTabUseCase {
 
   RemoteHomeRepository repository = GetIt.I.get<RemoteHomeRepository>();
   var storage = GetIt.I.get<Storage>();

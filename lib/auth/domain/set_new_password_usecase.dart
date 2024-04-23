@@ -5,11 +5,11 @@ import 'package:drink_shop/core/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class SetNewPasswordPresenter {
+abstract class SetNewPasswordUseCase {
   Future<void> pressButtonSetNewPassword(String newPassword);
 }
 
-class SetNewPasswordPresenterImpl extends SetNewPasswordPresenter {
+class SetNewPasswordUseCaseImpl extends SetNewPasswordUseCase {
 
   RemoteAuthRepository remoteAuthRepository = GetIt.I.get<RemoteAuthRepository>();
   Storage storage = GetIt.I.get<Storage>();
@@ -17,7 +17,7 @@ class SetNewPasswordPresenterImpl extends SetNewPasswordPresenter {
   final Function(String) onError;
 
 
-  SetNewPasswordPresenterImpl(
+  SetNewPasswordUseCaseImpl(
     {
       required this.navigateTo,
       required this.onError

@@ -5,7 +5,7 @@ import 'package:drink_shop/home/data/models/profile_model.dart';
 import 'package:drink_shop/home/data/repository/remote_repository.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class HomeTabPresenter {
+abstract class HomeTabUseCase {
   Future<void> fetchProducts(
       Function(List<ProductModel>) onResponse,
       Function(String) onError,
@@ -22,7 +22,7 @@ abstract class HomeTabPresenter {
   );
 }
 
-class HomeTabPresenterImpl extends HomeTabPresenter {
+class HomeTabUseCaseImpl extends HomeTabUseCase {
 
   RemoteHomeRepository repository = GetIt.I.get<RemoteHomeRepository>();
 

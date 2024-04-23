@@ -2,7 +2,7 @@ import 'package:drink_shop/auth/presentation/pages/sign_up_page.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/ui/widgets/Button.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
-import 'package:drink_shop/on_boarding/domain/on_boarding_presenter.dart';
+import 'package:drink_shop/on_boarding/domain/on_boarding_usecase.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingPage extends StatefulWidget {
@@ -14,12 +14,12 @@ class OnBoardingPage extends StatefulWidget {
 
 class _OnBoardingPageState extends StateWithLibrary<OnBoardingPage> {
 
-  late final OnBoardingPresenterImpl presenter;
+  late final OnBoardingUseCaseImpl useCase;
 
   @override
   void initState() {
     super.initState();
-    presenter = OnBoardingPresenterImpl(
+    useCase = OnBoardingUseCaseImpl(
       onNext: onNext,
       onComplete: onComplete
     );
@@ -42,7 +42,7 @@ class _OnBoardingPageState extends StateWithLibrary<OnBoardingPage> {
       body: Stack(
         children: [
           Image.asset(
-            presenter.currentOnBoardingModel.cover,
+            useCase.currentOnBoardingModel.cover,
             width: double.infinity,
             fit: BoxFit.fill,
           ),
@@ -74,7 +74,7 @@ class _OnBoardingPageState extends StateWithLibrary<OnBoardingPage> {
                   children: [
                     18.asHeight(),
                     Text(
-                      presenter.currentOnBoardingModel.title,
+                      useCase.currentOnBoardingModel.title,
                       style: const TextStyle(
                         fontSize: 34,
                         color: Colors.white,
@@ -85,15 +85,15 @@ class _OnBoardingPageState extends StateWithLibrary<OnBoardingPage> {
                     ),
                     24.asHeight(),
                     Text(
-                      presenter.currentOnBoardingModel.text,
+                      useCase.currentOnBoardingModel.text,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: colorLibrary.colorHint),
                     ),
                     24.asHeight(),
                     Button(
-                      text: presenter.currentOnBoardingModel.textButton,
+                      text: useCase.currentOnBoardingModel.textButton,
                       isEnable: true,
-                      onPressed: presenter.pressButton,
+                      onPressed: useCase.pressButton,
                     ).fillWidth()
                   ],
                 ),

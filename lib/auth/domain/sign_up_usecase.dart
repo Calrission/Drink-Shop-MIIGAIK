@@ -5,18 +5,18 @@ import 'package:drink_shop/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class SignUpPresenter {
+abstract class SignUpUseCase {
   Future<void> pressButtonSignUp(SignUpModel signUpModel);
 }
 
-class SignUpPresenterImpl extends SignUpPresenter {
+class SignUpUseCaseImpl extends SignUpUseCase {
 
   RemoteAuthRepository remoteAuthRepository = GetIt.I.get<RemoteAuthRepository>();
 
   final Function(Route) onNavigateTo;
   final Function(String) onError;
 
-  SignUpPresenterImpl({required this.onNavigateTo, required this.onError});
+  SignUpUseCaseImpl({required this.onNavigateTo, required this.onError});
 
   @override
   Future<void> pressButtonSignUp(SignUpModel signUpModel) async {

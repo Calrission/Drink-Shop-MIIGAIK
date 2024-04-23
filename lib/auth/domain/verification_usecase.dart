@@ -5,11 +5,11 @@ import 'package:drink_shop/core/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class VerificationPresenter {
+abstract class VerificationUseCase {
   void pressButtonConfirmCode(String email, String code);
 }
 
-class VerificationPresenterImpl extends VerificationPresenter {
+class VerificationUseCaseImpl extends VerificationUseCase {
 
   RemoteAuthRepository remoteAuthRepository = GetIt.I.get<RemoteAuthRepository>();
   Storage storage = GetIt.I.get<Storage>();
@@ -17,7 +17,7 @@ class VerificationPresenterImpl extends VerificationPresenter {
   final Function(Route) onNavigate;
   final Function(String) onError;
 
-  VerificationPresenterImpl({required this.onNavigate, required this.onError});
+  VerificationUseCaseImpl({required this.onNavigate, required this.onError});
 
   @override
   void pressButtonConfirmCode(String email, String code) async {

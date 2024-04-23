@@ -4,20 +4,20 @@ import 'package:drink_shop/core/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class ForgotPasswordPresenter {
+abstract class ForgotPasswordUseCase {
 
-  ForgotPasswordPresenter();
+  ForgotPasswordUseCase();
 
   void pressButtonSendCode(String email);
 }
 
-class ForgotPasswordPresenterImpl extends ForgotPasswordPresenter {
+class ForgotPasswordUseCaseImpl extends ForgotPasswordUseCase {
   RemoteAuthRepository remoteAuthRepository = GetIt.I.get<RemoteAuthRepository>();
 
   final Function(Route) onNavigate;
   final Function(String) onError;
 
-  ForgotPasswordPresenterImpl({required this.onNavigate, required this.onError});
+  ForgotPasswordUseCaseImpl({required this.onNavigate, required this.onError});
 
   @override
   Future<void> pressButtonSendCode(String email) async {

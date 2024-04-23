@@ -1,4 +1,4 @@
-import 'package:drink_shop/auth/domain/forgot_password_presenter.dart';
+import 'package:drink_shop/auth/domain/forgot_password_usecase.dart';
 import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/values/strings.dart';
@@ -20,12 +20,12 @@ class _ForgotPasswordPageState extends StateWithLibrary<ForgotPasswordPage> {
 
   var email = TextEditingController();
   var isEnableSendCode = false;
-  late ForgotPasswordPresenterImpl presenter;
+  late ForgotPasswordUseCaseImpl useCase;
 
   @override
   void initState() {
     super.initState();
-    presenter = ForgotPasswordPresenterImpl(
+    useCase = ForgotPasswordUseCaseImpl(
       onNavigate: navigateTo,
       onError: showError
     );
@@ -68,7 +68,7 @@ class _ForgotPasswordPageState extends StateWithLibrary<ForgotPasswordPage> {
                   text: textSendEmail,
                   isEnable: isEnableSendCode,
                   onPressed: (){
-                    presenter.pressButtonSendCode(email.text);
+                    useCase.pressButtonSendCode(email.text);
                   }
                 ).fillWidth(),
                 32.asHeight()

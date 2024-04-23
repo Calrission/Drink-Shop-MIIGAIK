@@ -1,4 +1,4 @@
-import 'package:drink_shop/auth/domain/set_new_password_presenter.dart';
+import 'package:drink_shop/auth/domain/set_new_password_usecase.dart';
 import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/values/nums.dart';
 import 'package:drink_shop/core/values/strings.dart';
@@ -21,12 +21,12 @@ class _SetNewPasswordPageState extends StateWithLibrary<SetNewPasswordPage> {
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
 
-  late SetNewPasswordPresenterImpl presenter;
+  late SetNewPasswordUseCaseImpl useCase;
 
   @override
   void initState() {
     super.initState();
-    presenter = SetNewPasswordPresenterImpl(
+    useCase = SetNewPasswordUseCaseImpl(
       navigateTo: navigateTo,
       onError: showError
     );
@@ -80,7 +80,7 @@ class _SetNewPasswordPageState extends StateWithLibrary<SetNewPasswordPage> {
                   text: textConfirmPassword,
                   isEnable: isEnableConfirm,
                   onPressed: (){
-                    presenter.pressButtonSetNewPassword(
+                    useCase.pressButtonSetNewPassword(
                       password.text
                     );
                   },

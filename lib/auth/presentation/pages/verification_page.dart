@@ -1,4 +1,4 @@
-import 'package:drink_shop/auth/domain/verification_presenter.dart';
+import 'package:drink_shop/auth/domain/verification_usecase.dart';
 import 'package:drink_shop/auth/presentation/widgets/text_count_down_timer.dart';
 import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/values/nums.dart';
@@ -25,7 +25,7 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
   bool isError = false;
   TextEditingController code = TextEditingController();
   TextCountDownTimerController textCountDownTimerController = TextCountDownTimerController(60);
-  late VerificationPresenterImpl presenter;
+  late VerificationUseCaseImpl useCase;
 
   void refreshEnableSetNewPassword() {
     setState(() {
@@ -50,7 +50,7 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
   @override
   void initState() {
     super.initState();
-    presenter = VerificationPresenterImpl(onNavigate: navigateTo, onError: showError);
+    useCase = VerificationUseCaseImpl(onNavigate: navigateTo, onError: showError);
   }
 
   @override
@@ -95,7 +95,7 @@ class _VerificationPageState extends StateWithLibrary<VerificationPage> {
                   text: textSetPassword,
                   isEnable: isEnableSetNewPassword,
                   onPressed: () {
-                    presenter.pressButtonConfirmCode(
+                    useCase.pressButtonConfirmCode(
                       widget.email,
                       code.text
                     );

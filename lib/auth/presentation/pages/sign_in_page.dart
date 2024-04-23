@@ -1,5 +1,5 @@
 import 'package:drink_shop/auth/data/models/sign_in_model.dart';
-import 'package:drink_shop/auth/domain/sign_in_presenter.dart';
+import 'package:drink_shop/auth/domain/sign_in_usecase.dart';
 import 'package:drink_shop/auth/presentation/pages/forgot_password_page.dart';
 import 'package:drink_shop/auth/presentation/pages/sign_up_page.dart';
 import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
@@ -28,7 +28,7 @@ class _SignInPageState extends StateWithLibrary<SignInPage> {
   var email = TextEditingController();
   var password = TextEditingController();
 
-  late SignInPresenterImpl signInPresenterImpl;
+  late SignInUseCaseImpl signInUseCaseImpl;
 
   void navigateTo(Route route){
     Navigator.of(context).pushReplacement(
@@ -43,7 +43,7 @@ class _SignInPageState extends StateWithLibrary<SignInPage> {
   @override
   void initState() {
     super.initState();
-    signInPresenterImpl = SignInPresenterImpl(
+    signInUseCaseImpl = SignInUseCaseImpl(
         onNavigateTo: navigateTo, onError: showError
     );
   }
@@ -70,7 +70,7 @@ class _SignInPageState extends StateWithLibrary<SignInPage> {
       email: email.text,
       password: password.text
     );
-    signInPresenterImpl.pressButtonSignIn(signInModel, rememberPassword);
+    signInUseCaseImpl.pressButtonSignIn(signInModel, rememberPassword);
   }
 
   @override

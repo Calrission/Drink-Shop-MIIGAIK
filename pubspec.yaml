@@ -44,7 +44,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/icons/bottom_nav_bar/
-    - .env
+    - keys.env
 
   fonts:
     - family: Sora

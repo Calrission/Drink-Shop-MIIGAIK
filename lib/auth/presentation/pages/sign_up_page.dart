@@ -1,5 +1,5 @@
 import 'package:drink_shop/auth/data/models/sign_up_model.dart';
-import 'package:drink_shop/auth/domain/sign_up_presenter.dart';
+import 'package:drink_shop/auth/domain/sign_up_usecase.dart';
 import 'package:drink_shop/auth/presentation/pages/sign_in_page.dart';
 import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
@@ -28,7 +28,7 @@ class _SignUpPageState extends StateWithLibrary<SignUpPage> {
   var password = TextEditingController();
   var confirmPassword = TextEditingController();
 
-  late SignUpPresenterImpl signUpPresenter;
+  late SignUpUseCaseImpl signUpUseCase;
 
   void navigateTo(Route route){
     Navigator.of(context).pushReplacement(
@@ -43,7 +43,7 @@ class _SignUpPageState extends StateWithLibrary<SignUpPage> {
   @override
   void initState() {
     super.initState();
-    signUpPresenter = SignUpPresenterImpl(
+    signUpUseCase = SignUpUseCaseImpl(
         onNavigateTo: navigateTo, onError: showError
     );
   }
@@ -62,7 +62,7 @@ class _SignUpPageState extends StateWithLibrary<SignUpPage> {
       email: email.text,
       password: password.text
     );
-    signUpPresenter.pressButtonSignUp(signUpModel);
+    signUpUseCase.pressButtonSignUp(signUpModel);
   }
 
   @override

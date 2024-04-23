@@ -4,18 +4,18 @@ import 'package:drink_shop/on_boarding/data/repository/local_repository.dart';
 import 'package:drink_shop/on_boarding/domain/queue_on_boarding.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class OnBoardingPresenter {
+abstract class OnBoardingUseCase {
 
   final Function onNext;
   final Function onComplete;
 
-  OnBoardingPresenter({required this.onNext, required this.onComplete});
+  OnBoardingUseCase({required this.onNext, required this.onComplete});
 
   void init();
   void pressButton();
 }
 
-class OnBoardingPresenterImpl extends OnBoardingPresenter{
+class OnBoardingUseCaseImpl extends OnBoardingUseCase{
   final LocalRepository _localRepository = LocalRepository();
   late final QueueOnBoarding _queueOnBoarding;
   final Storage storage = GetIt.I.get<Storage>();
@@ -23,7 +23,7 @@ class OnBoardingPresenterImpl extends OnBoardingPresenter{
   late OnBoardingModel _currentOnBoardingModel;
   OnBoardingModel get currentOnBoardingModel => _currentOnBoardingModel;
 
-  OnBoardingPresenterImpl({required super.onNext, required super.onComplete}){
+  OnBoardingUseCaseImpl({required super.onNext, required super.onComplete}){
     init();
   }
 

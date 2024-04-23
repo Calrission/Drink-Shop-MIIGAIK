@@ -42,19 +42,24 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                       height: double.infinity
                     ),
                   (widget.model.rate != 0)
-                      ? BlurryContainer(
+                    ? BlurryContainer(
                         blur: 5,
                         color: Colors.transparent,
-                        borderRadius: const BorderRadius.only(bottomRight: Radius.circular(16)),
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                        borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(16)
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 18
+                        ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(
-                                "assets/icons/star.svg",
-                                width: 8,
-                                height: 8,
-                                color: colorLibrary.colorStar
+                              "assets/icons/star.svg",
+                              width: 8,
+                              height: 8,
+                              color: colorLibrary.colorStar
                             ),
                             4.asWidth(),
                             Text(widget.model.rate.toString(),
@@ -101,17 +106,17 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                         4.asWidth(),
                         Text("${widget.model.sizes[0].cost}", style: textLibrary.price).expanded(),
                         SizedBox.square(
-                            dimension: 32,
-                            child: FilledButton(
-                              onPressed: (){},
-                              style: FilledButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)
-                                  )
-                              ),
-                              child: const Icon(Icons.add, color: Colors.white, size: 16),
-                            )
+                          dimension: 32,
+                          child: FilledButton(
+                            onPressed: (){},
+                            style: FilledButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                              )
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white, size: 16),
+                          )
                         )
                       ],
                     ),

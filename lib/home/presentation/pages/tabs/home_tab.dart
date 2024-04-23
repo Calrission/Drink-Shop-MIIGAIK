@@ -1,3 +1,4 @@
+import 'package:drink_shop/core/ui/dialogs/dialog_loading.dart';
 import 'package:drink_shop/core/ui/dialogs/dialog_message.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
@@ -26,18 +27,26 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   @override
   void initState() {
     super.initState();
-    initData();
+    WidgetsBinding
+        .instance
+        .addPostFrameCallback((_) async {
+           await initData();
+        });
   }
 
   Future<void> initData() async {
+    LoadingDialog.show(context);
     await useCase.fetchProducts(
       (response) => setState(() {
+        LoadingDialog.hide(context);
         products = response;
       }),
       showError
     );
+
     await useCase.fetchProfile(
       (response) => setState(() {
+        LoadingDialog.hide(context);
         profile = response;
       }),
       showError
@@ -45,6 +54,7 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   }
 
   void showError(String error){
+    LoadingDialog.hide(context);
     MessageDialog.showError(context, error);
   }
 

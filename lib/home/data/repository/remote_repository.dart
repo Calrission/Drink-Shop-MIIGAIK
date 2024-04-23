@@ -2,14 +2,12 @@ import 'package:drink_shop/home/data/models/category_product_model.dart';
 import 'package:drink_shop/home/data/models/geo_model.dart';
 import 'package:drink_shop/home/data/models/product_model.dart';
 import 'package:drink_shop/home/data/models/profile_model.dart';
-import 'package:drink_shop/home/data/repository/repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class RemoteHomeRepository extends HomeRepository {
+class RemoteHomeRepository {
 
   final supabase = Supabase.instance.client;
 
-  @override
   Future<List<CategoryProductModel>> getCategories() async {
     var response = await supabase
         .from("categories")
@@ -17,7 +15,6 @@ class RemoteHomeRepository extends HomeRepository {
     return response.map((e) => CategoryProductModel.fromJson(e)).toList();
   }
 
-  @override
   Future<ProfileModel> getCurrentUserProfile() async {
     String idUser = supabase.auth.currentUser!.id;
     var profile = await supabase
@@ -33,12 +30,10 @@ class RemoteHomeRepository extends HomeRepository {
     );
   }
 
-  @override
   Future<GeoModel> getGeoUser() {
     throw UnimplementedError();
   }
 
-  @override
   Future<List<ProductModel>> getProducts() async {
     var response = await supabase
         .from("products")
@@ -46,9 +41,25 @@ class RemoteHomeRepository extends HomeRepository {
     return response.map((e) => ProductModel.fromJson(e)).toList();
   }
 
-  @override
   Future<void> logout() async {
     await supabase.auth.signOut();
+  }
+
+  Future<double> getRatingProduct(
+    String productId
+  ) async {
+    var response = await supabase
+        .from("reviews")
+        .select()
+        .eq("id_product", productId);
+
+    var allRate = response.map((e) => e["rate"] as int);
+    if (allRate.isEmpty){
+      return 0;
+    }
+    var sumRate = allRate.reduce((e1, e2) => e1 + e2);
+    var avgRate = sumRate / allRate.length;
+    return double.parse(avgRate.toStringAsFixed(2));
   }
 
 }

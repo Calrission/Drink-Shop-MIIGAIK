@@ -17,7 +17,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends StateWithLibrary<HomeTab> {
-  final HomeTabUseCase useCase = HomeTabUseCaseImpl();
+  final useCase = HomeTabUseCase();
   bool isFinishFetchData = false;
   List<ProductModel> products = [];
   List<CategoryProductModel> categories = [];

@@ -25,7 +25,7 @@ Future<void> request<T>(
     onError(e.message);
   } on PostgrestException catch(e){
     onError(e.message);
-  } on Exception catch(e){
+  } catch(e){
     onError(e.toString());
   }
 }

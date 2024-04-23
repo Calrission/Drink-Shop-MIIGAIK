@@ -5,40 +5,29 @@ import 'package:drink_shop/home/data/models/profile_model.dart';
 import 'package:drink_shop/home/data/repository/remote_repository.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class HomeTabUseCase {
-  Future<void> fetchProducts(
-      Function(List<ProductModel>) onResponse,
-      Function(String) onError,
-  );
-
-  Future<void> fetchCategories(
-      Function(List<CategoryProductModel>) onResponse,
-      Function(String) onError,
-  );
-
-  Future<void> fetchProfile(
-      Function(ProfileModel) onResponse,
-      Function(String) onError,
-  );
-}
-
-class HomeTabUseCaseImpl extends HomeTabUseCase {
+class HomeTabUseCase {
 
   RemoteHomeRepository repository = GetIt.I.get<RemoteHomeRepository>();
 
-  @override
   Future<void> fetchProducts(
       Function(List<ProductModel>) onResponse,
       Function(String) onError,
   ) async {
-    await request(
-        request: repository.getProducts,
+    requestGetProducts() async {
+      var products = await repository.getProducts();
+      for (var element in products){
+        var rate = await repository.getRatingProduct(element.id);
+        element.rate = rate;
+      }
+      return products;
+    }
+    await request<List<ProductModel>>(
+        request: requestGetProducts,
         onResponse: onResponse,
         onError: onError
     );
   }
 
-  @override
   Future<void> fetchProfile(
       Function(ProfileModel) onResponse,
       Function(String) onError,
@@ -63,7 +52,6 @@ class HomeTabUseCaseImpl extends HomeTabUseCase {
     return false;
   }
 
-  @override
   Future<void> fetchCategories(
       Function(List<CategoryProductModel>) onResponse,
       Function(String) onError
@@ -74,5 +62,4 @@ class HomeTabUseCaseImpl extends HomeTabUseCase {
       onError: onError
     );
   }
-
 }

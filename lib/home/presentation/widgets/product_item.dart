@@ -31,36 +31,43 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
               aspectRatio: 1/1,
               child: Stack(
                 children: [
-                  (widget.model.cover?.contains("http") ?? false)
-                    ? Image.network(widget.model.cover!, fit: BoxFit.cover)
-                    // : Image.asset(widget.model.cover, fit: BoxFit.cover),
-                    : Container(color: Colors.grey),
-                  BlurryContainer(
-                    blur: 5,
-                    color: Colors.transparent,
-                    borderRadius: const BorderRadius.only(bottomRight: Radius.circular(16)),
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                            "assets/icons/star.svg",
-                            width: 8,
-                            height: 8,
-                            color: colorLibrary.colorStar
-                        ),
-                        4.asWidth(),
-                        Text(
-                          "4.8",
-                          style: TextStyle(
-                            color: colorLibrary.colorBlock,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600
-                          )
-                        ),
-                      ],
+                  (widget.model.cover != null)
+                    ? Image.network(
+                      widget.model.cover!,
+                      fit: BoxFit.cover
+                    )
+                    : Image.asset(
+                      "assets/images/coffee.png",
+                      fit: BoxFit.cover,
+                      height: double.infinity
                     ),
-                  )
+                  (widget.model.rate != 0)
+                      ? BlurryContainer(
+                        blur: 5,
+                        color: Colors.transparent,
+                        borderRadius: const BorderRadius.only(bottomRight: Radius.circular(16)),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                                "assets/icons/star.svg",
+                                width: 8,
+                                height: 8,
+                                color: colorLibrary.colorStar
+                            ),
+                            4.asWidth(),
+                            Text(widget.model.rate.toString(),
+                              style: TextStyle(
+                                color: colorLibrary.colorBlock,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600
+                              )
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox()
                 ]
               )
             ),

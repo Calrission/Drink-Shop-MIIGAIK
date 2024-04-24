@@ -35,31 +35,13 @@ class RemoteHomeRepository {
   }
 
   Future<List<ProductModel>> getProducts() async {
-    var response = await supabase
-        .from("products")
-        .select();
-    return response.map((e) => ProductModel.fromJson(e)).toList();
+    List<Map<String, dynamic>> response = await supabase.rpc("get_all_product_ratings");
+    List<ProductModel> result = response.map((e) => ProductModel.fromJson(e)).toList();
+    return result;
   }
 
   Future<void> logout() async {
     await supabase.auth.signOut();
-  }
-
-  Future<double> getRatingProduct(
-    String productId
-  ) async {
-    var response = await supabase
-        .from("reviews")
-        .select()
-        .eq("id_product", productId);
-
-    var allRate = response.map((e) => e["rate"] as int);
-    if (allRate.isEmpty){
-      return 0;
-    }
-    var sumRate = allRate.reduce((e1, e2) => e1 + e2);
-    var avgRate = sumRate / allRate.length;
-    return double.parse(avgRate.toStringAsFixed(2));
   }
 
 }

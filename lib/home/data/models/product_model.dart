@@ -7,7 +7,7 @@ class ProductModel {
   final String description;
   final String idCategory;
   final List<ModelSize> sizes;
-  double rate;
+  final double rate;
 
   ProductModel(
     {
@@ -17,7 +17,7 @@ class ProductModel {
       required this.description,
       required this.idCategory,
       required this.sizes,
-      this.rate = 0
+      required this.rate
     }
   );
 
@@ -29,6 +29,7 @@ class ProductModel {
         description: json["description"],
         idCategory: json["id_category"],
         sizes: (json["sizes"] as List).map((e) => ModelSize.fromJson(e)).toList(),
+        rate: double.parse(double.parse(json["rate"].toString()).toStringAsFixed(2))  // говно
     );
   }
 }

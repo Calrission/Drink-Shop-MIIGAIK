@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:drink_shop/core/values/strings.dart';
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<bool> checkNetworkConnection() async {
@@ -9,7 +10,7 @@ Future<bool> checkNetworkConnection() async {
 
 Future<void> request<T>(
   {
-    required Function request,
+    required Future<T> Function() request,
     required Function(T) onResponse,
     required Function(String) onError
   }
@@ -26,6 +27,9 @@ Future<void> request<T>(
   } on PostgrestException catch(e){
     onError(e.message);
   } catch(e){
+    if (kDebugMode) {
+      print(StackTrace.current.toString());
+    }
     onError(e.toString());
   }
 }

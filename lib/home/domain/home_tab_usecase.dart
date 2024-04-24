@@ -13,16 +13,8 @@ class HomeTabUseCase {
       Function(List<ProductModel>) onResponse,
       Function(String) onError,
   ) async {
-    requestGetProducts() async {
-      var products = await repository.getProducts();
-      for (var element in products){
-        var rate = await repository.getRatingProduct(element.id);
-        element.rate = rate;
-      }
-      return products;
-    }
     await request<List<ProductModel>>(
-        request: requestGetProducts,
+        request: repository.getProducts,
         onResponse: onResponse,
         onError: onError
     );

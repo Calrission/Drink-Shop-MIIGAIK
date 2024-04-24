@@ -28,10 +28,10 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   void initState() {
     super.initState();
     WidgetsBinding
-        .instance
-        .addPostFrameCallback((_) async {
-           await initData();
-        });
+      .instance
+      .addPostFrameCallback((_) async {
+         await initData();
+      });
   }
 
   Future<void> initData() async {

@@ -1,6 +1,6 @@
 import 'package:drink_shop/home/data/models/model_size.dart';
 
-class ProductModel {
+class ModelProduct {
   final String id;
   final String? cover;
   final String title;
@@ -9,7 +9,7 @@ class ProductModel {
   final List<ModelSize> sizes;
   final double rate;
 
-  ProductModel(
+  ModelProduct(
     {
       required this.id,
       required this.cover,
@@ -21,8 +21,8 @@ class ProductModel {
     }
   );
 
-  static ProductModel fromJson(Map<String, dynamic> json){
-    return ProductModel(
+  static ModelProduct fromJson(Map<String, dynamic> json){
+    return ModelProduct(
         id: json["id"],
         cover: json["cover"],
         title: json["title"],

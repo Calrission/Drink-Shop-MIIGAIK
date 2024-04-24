@@ -1,10 +1,10 @@
-class ProfileModel {
+class ModelProfile {
   final String id;
   final String fullname;
   final String email;
   final String? avatar;
 
-  ProfileModel(
+  ModelProfile(
     {
       required this.id,
       required this.fullname,

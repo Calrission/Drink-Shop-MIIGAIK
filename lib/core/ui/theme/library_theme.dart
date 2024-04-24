@@ -92,6 +92,7 @@ class LibraryTextThemes {
   late final TextStyle subTitleProduct;
   late final TextStyle subTextAccentBold;
   late final TextStyle subTextAccent;
+  late final TextStyle activeTitleCategory;
   late final TextStyle button;
   late final TextStyle label;
   late final TextStyle text;
@@ -106,6 +107,7 @@ class LibraryTextThemes {
       required this.subTitleProduct,
       required this.titleProduct,
       required this.subTextAccent,
+      required this.activeTitleCategory,
       required this.subTextAccentBold,
       required this.button,
       required this.label,

@@ -1,13 +1,13 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
-import 'package:drink_shop/home/data/models/product_model.dart';
+import 'package:drink_shop/home/data/models/model_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductItem extends StatefulWidget {
 
-  final ProductModel model;
+  final ModelProduct model;
 
   const ProductItem({super.key, required this.model});
 

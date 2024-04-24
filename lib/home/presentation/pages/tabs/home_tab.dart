@@ -24,7 +24,7 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
   List<ModelProduct> products = [];
   List<ModelCategory> categories = [];
   late ModelProfile profile;
-  late ModelCategory selectedModelCategory;
+  ModelCategory? selectedModelCategory;
 
   @override
   void initState() {
@@ -119,7 +119,7 @@ class _HomeTabState extends StateWithLibrary<HomeTab> {
             ),
             sliver: SliverGrid(
               delegate: SliverChildListDelegate(
-                selectedModelCategory.products.map((e) => ProductItem(model: e)).toList()
+                selectedModelCategory?.products.map((e) => ProductItem(product: e)).toList() ?? []
               ),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

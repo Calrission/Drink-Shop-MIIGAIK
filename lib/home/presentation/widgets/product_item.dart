@@ -1,15 +1,17 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drink_shop/core/ui/theme/state_with_library.dart';
 import 'package:drink_shop/core/utils/extensions.dart';
 import 'package:drink_shop/home/data/models/model_product.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductItem extends StatefulWidget {
 
-  final ModelProduct model;
+  final ModelProduct product;
 
-  const ProductItem({super.key, required this.model});
+  const ProductItem({super.key, required this.product});
 
   @override
   StateWithLibrary<ProductItem> createState() => _ProductItemState();
@@ -31,17 +33,29 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
               aspectRatio: 1/1,
               child: Stack(
                 children: [
-                  (widget.model.cover != null)
-                    ? Image.network(
-                      widget.model.cover!,
-                      fit: BoxFit.cover
-                    )
-                    : Image.asset(
-                      "assets/images/coffee.png",
-                      fit: BoxFit.cover,
-                      height: double.infinity
-                    ),
-                  (widget.model.rate != 0)
+                  CachedNetworkImage(
+                      imageUrl: widget.product.getCoverUrl(),
+                      fit: BoxFit.fill,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                        ),
+                      )),
+                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) {
+                        if (kDebugMode) {
+                          print(StackTrace.current.toString());
+                        }
+                        return Image.asset(
+                            "assets/images/coffee.png",
+                            fit: BoxFit.cover,
+                            height: double.infinity
+                        );
+                      }
+                  ),
+                  (widget.product.rate != 0)
                     ? BlurryContainer(
                         blur: 5,
                         color: Colors.transparent,
@@ -62,12 +76,8 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                               color: colorLibrary.colorStar
                             ),
                             4.asWidth(),
-                            Text(widget.model.rate.toString(),
-                              style: TextStyle(
-                                color: colorLibrary.colorBlock,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600
-                              )
+                            Text(widget.product.rate.toString(),
+                              style: textLibrary.starRateText
                             ),
                           ],
                         ),
@@ -89,7 +99,7 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      widget.model.title,
+                      widget.product.title,
                       textAlign: TextAlign.start,
                       style: textLibrary.titleProduct,
                       maxLines: 2,
@@ -104,7 +114,7 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                       children: [
                         SvgPicture.asset("assets/icons/ruble.svg"),
                         4.asWidth(),
-                        Text("${widget.model.sizes[0].cost}", style: textLibrary.price).expanded(),
+                        Text("${widget.product.sizes[0].cost}", style: textLibrary.price).expanded(),
                         SizedBox.square(
                           dimension: 32,
                           child: FilledButton(

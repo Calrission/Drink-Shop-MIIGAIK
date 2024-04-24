@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:drink_shop/core/values/strings.dart';
+import 'package:env_flutter/env_flutter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<bool> checkNetworkConnection() async {

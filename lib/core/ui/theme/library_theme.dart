@@ -99,6 +99,7 @@ class LibraryTextThemes {
   late final TextStyle hint;
   late final TextStyle subText;
   late final TextStyle price;
+  late final TextStyle starRateText;
 
   LibraryTextThemes(
     {
@@ -114,7 +115,8 @@ class LibraryTextThemes {
       required this.text,
       required this.hint,
       required this.subText,
-      required this.price
+      required this.price,
+      required this.starRateText,
     }
   );
 }

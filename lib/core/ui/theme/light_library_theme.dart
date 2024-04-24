@@ -134,4 +134,5 @@ var lightLibraryTextThemes = LibraryTextThemes(
     subText: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: lightLibraryColors.colorLabel),
     price: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: lightLibraryColors.colorPrice),
     activeTitleCategory: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: lightLibraryColors.colorBlock),
+    starRateText: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: lightLibraryColors.colorBlock),
 );

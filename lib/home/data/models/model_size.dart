@@ -7,4 +7,11 @@ class ModelSize {
   static ModelSize fromJson(Map<String, dynamic> json){
     return ModelSize(size: json["size"]!, cost: json["cost"]!);
   }
+
+  Map<String, String> toJson(){
+    return {
+      "size": size,
+      "cost": cost.toString()
+    };
+  }
 }

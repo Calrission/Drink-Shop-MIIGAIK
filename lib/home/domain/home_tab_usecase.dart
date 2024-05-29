@@ -1,15 +1,15 @@
 import 'package:drink_shop/core/utils/network.dart';
+import 'package:drink_shop/home/data/models/model_cart_item.dart';
 import 'package:drink_shop/home/data/models/model_category.dart';
 import 'package:drink_shop/home/data/models/model_product.dart';
 import 'package:drink_shop/home/data/models/model_profile.dart';
 import 'package:drink_shop/home/data/repository/remote_repository.dart';
+import 'package:drink_shop/home/data/storage/products.dart';
 import 'package:get_it/get_it.dart';
 
 class HomeTabUseCase {
 
   RemoteHomeRepository repository = GetIt.I.get<RemoteHomeRepository>();
-  List<ModelProduct> _lastProducts = [];
-
 
   Future<void> fetchProducts(
       Function(List<ModelProduct>) onResponse,
@@ -18,7 +18,7 @@ class HomeTabUseCase {
     await request<List<ModelProduct>>(
       request: repository.getProducts,
       onResponse: (products){
-        _lastProducts = products;
+        allProducts = products;
         onResponse(products);
       },
       onError: onError
@@ -33,9 +33,9 @@ class HomeTabUseCase {
       request: repository.getCategories,
       onResponse: (categories){
         for (var category in categories) {
-          category.products = _lastProducts.where((e) => e.idCategory == category.id).toList();
+          category.products = allProducts.where((e) => e.idCategory == category.id).toList();
         }
-        categories.insert(0, ModelCategory(id: "", title: "All", products: _lastProducts));
+        categories.insert(0, ModelCategory(id: "", title: "All", products: allProducts));
         onResponse(categories);
       },
       onError: onError

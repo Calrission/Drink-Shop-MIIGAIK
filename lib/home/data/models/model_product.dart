@@ -1,4 +1,3 @@
-import 'package:drink_shop/core/utils/network.dart';
 import 'package:drink_shop/home/data/models/model_size.dart';
 import 'package:env_flutter/env_flutter.dart';
 
@@ -23,13 +22,24 @@ class ModelProduct {
 
   static ModelProduct fromJson(Map<String, dynamic> json){
     return ModelProduct(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        idCategory: json["id_category"],
-        sizes: (json["sizes"] as List).map((e) => ModelSize.fromJson(e)).toList(),
-        rate: double.parse(double.parse(json["rate"].toString()).toStringAsFixed(2))  // говно
+      id: json["id"],
+      title: json["title"],
+      description: json["description"],
+      idCategory: json["id_category"],
+      sizes: (json["sizes"] as List).map((e) => ModelSize.fromJson(e)).toList(),
+      rate: double.parse(double.parse(json["rate"].toString()).toStringAsFixed(2))  // говно
     );
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      "id": id,
+      "title": title,
+      "description": description,
+      "idCategory": idCategory,
+      "sizes": sizes.map((e) => e.toJson()).toList(),
+      "rate": rate
+    };
   }
 
   String getCoverUrl(){

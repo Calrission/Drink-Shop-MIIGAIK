@@ -13,6 +13,14 @@ class _FavoriteTabState extends StateWithLibrary<CartTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorLibrary.colorBackground,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 22, right: 22, top: 72),
+        child: Column(
+          children: [
+
+          ],
+        ),
+      ),
     );
   }
 }

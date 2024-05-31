@@ -119,19 +119,6 @@ class _ProductItemState extends StateWithLibrary<ProductItem> {
                           SvgPicture.asset("assets/icons/ruble.svg"),
                           4.asWidth(),
                           Text("${widget.product.sizes[0].cost}", style: textLibrary.price).expanded(),
-                          SizedBox.square(
-                            dimension: 32,
-                            child: FilledButton(
-                              onPressed: (){},
-                              style: FilledButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                                )
-                              ),
-                              child: const Icon(Icons.add, color: Colors.white, size: 16),
-                            )
-                          )
                         ],
                       ),
                       16.asHeight(),
